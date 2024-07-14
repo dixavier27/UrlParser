@@ -1,0 +1,24 @@
+{
+  "name": "urlParser",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "start:dev": "tsx watch src/index.ts",
+    "build": "tsup src"
+  },
+  "keywords": [
+    "url",
+    "typescript",
+    "parser"
+  ],
+  "author": "Affonso Xavier",
+  "license": "MIT",
+  "description": "An simple and efficient URL Parser to help in your TS/JS codes",
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "tsup": "^8.1.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}
