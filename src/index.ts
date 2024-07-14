@@ -2,13 +2,15 @@ export function parseUrl(url: string): {
     protocol: string;
     domain: string;
     path: string;
-    query: Record<string, string>
+    query: Record<string, string>,
+    anchor: string;
 } {
     const protocol = getProtocol(url);
-    const domain = extractDomain(url);
-    const path = extractPath(url);
-    const query = extractQuery(url);
-    return { protocol, domain, path, query };
+    const domain = getDomain(url);
+    const path = getPath(url);
+    const query = getQuery(url);
+    const anchor = getAnchor(url)
+    return { protocol, domain, path, query, anchor };
 }
 
 export function invertDomain(url: string): string {
@@ -28,20 +30,27 @@ export function getProtocol(url: string): string {
     return match ? match[0].replace(/:\/{2}$/, '') : '';
 }
 
-export function extractDomain(url: string): string {
+export function getDomain(url: string): string {
     let domain = url.replace(/^.*?:\/\//, '');
     domain = domain.split('/')[0].split(':')[0];
     return domain;
 }
 
-export function extractPath(url: string): string {
-    let path = url.replace(/^.*?:\/\/[^/]+/, '');
+export function getPath(url: string): string {
+    let path = url.replace(/^.*?:\/\/[^/]+/, '').replace(/#(.+)$/, '');
     path = path.split('?')[0];
     return path;
 }
 
-export function extractQuery(url: string): Record<string, string> {
+export function getQuery(url: string): Record<string, string> {
     const queryString = url.split('?')[1] || '';
     const queryParams = new URLSearchParams(queryString);
     return Object.fromEntries(queryParams);
 }
+
+export function getAnchor(url: string): string {
+    const match = url.match(/#(.+)$/);
+    return match ? match[0] : '';
+}
+
+console.log(parseUrl('https://developer.atlassian.com/cloud/trello/rest/api-group-actions/#api-actions-id-delete'))
