@@ -52,5 +52,3 @@ export function getAnchor(url: string): string {
     const match = url.match(/#(.+)$/);
     return match ? match[0] : '';
 }
-
-console.log(parseUrl('https://developer.atlassian.com/cloud/trello/rest/api-group-actions/#api-actions-id-delete'))
